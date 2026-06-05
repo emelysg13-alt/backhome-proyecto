@@ -1,0 +1,102 @@
+/* =========================
+   FONDO GENERAL ROSA CLARO
+========================= */
+body{
+    background: linear-gradient(135deg, #ffe6f0, #fff7d6);
+    font-family: Arial, sans-serif;
+}
+
+/* =========================
+   CARD
+========================= */
+.card{
+    border-radius: 20px;
+    border: none;
+    overflow: hidden;
+    background: #fff0f6; /* rosa muy suave */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   HEADER
+========================= */
+.card-header{
+    background: linear-gradient(135deg, #ffd6e7, #fff3b0);
+    text-align: center;
+    padding: 20px;
+    color: #333;
+}
+
+.card-header h3{
+    font-weight: bold;
+}
+
+/* =========================
+   LABELS
+========================= */
+.form-label{
+    font-weight: 600;
+    color: #555;
+}
+
+/* =========================
+   INPUTS
+========================= */
+.form-control,
+.form-select{
+    border-radius: 12px;
+    border: 1px solid #ffd6e0;
+    padding: 10px;
+    background: #fff;
+    transition: 0.3s;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color: #ffb6c1;
+    box-shadow: 0 0 10px rgba(255,182,193,0.6);
+}
+
+/* =========================
+   BOTÓN GUARDAR (AMARILLO CLARO)
+========================= */
+.btn-success{
+    background: linear-gradient(135deg, #fff3b0, #ffe066);
+    border: none;
+    color: #333;
+    font-weight: bold;
+    border-radius: 12px;
+    padding: 10px 25px;
+}
+
+.btn-success:hover{
+    opacity: 0.85;
+    transform: scale(1.02);
+}
+
+/* =========================
+   BOTÓN VOLVER (ROSA CLARO)
+========================= */
+.btn-secondary{
+    background: linear-gradient(135deg, #ffd6e7, #ffc2d6);
+    border: none;
+    color: #333;
+    border-radius: 12px;
+    padding: 10px 25px;
+}
+
+.btn-secondary:hover{
+    opacity: 0.85;
+    transform: scale(1.02);
+}
+
+/* =========================
+   EFECTO SUAVE
+========================= */
+.card{
+    transition: 0.3s;
+}
+
+.card:hover{
+    transform: translateY(-3px);
+}
