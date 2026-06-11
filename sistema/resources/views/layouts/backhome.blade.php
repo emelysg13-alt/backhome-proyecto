@@ -15,10 +15,19 @@
     <link rel="stylesheet"
 href="{{ asset('css/backhome.css') }}">
 
-
+<script src="{{ asset('js/backhome.js') }}" defer></script>
 </head>
 
 <body>
+
+<div id="loader-wrapper">
+    <img src="{{ asset('gif/cargando.gif') }}" alt="Cargando..." class="loader-cat">
+</div>
+
+<div id="content">
+    </div>
+
+
 
     <header>
         <h1>🐾 Back Home</h1>
