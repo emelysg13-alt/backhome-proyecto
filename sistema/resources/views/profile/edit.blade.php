@@ -1,29 +1,45 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
+<link rel="stylesheet"
+href="{{ asset('css/perfil.css') }}">
+
+
+<div class="container my-5">
+    
+    <!-- Encabezado de la Sección -->
+    <div class="row mb-4">
+        <div class="col-12 text-center text-md-start">
+            <h2 class="profile-main-title">
+                👤 {{ __('Profile') }}
+            </h2>
+            <p class="text-muted small">Administra la información de tu cuenta, seguridad y accesos.</p>
+        </div>
+    </div>
+
+    <!-- Bloques de Formularios de Laravel organizados con Bootstrap -->
+    <div class="row g-4 justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+            
+            <!-- Bloque 1: Información del Perfil -->
+            <div class="card p-4 p-sm-5 profile-custom-card mb-4">
+                <div class="profile-form-container">
                     @include('profile.partials.update-profile-information-form')
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
+            <!-- Bloque 2: Actualizar Contraseña -->
+            <div class="card p-4 p-sm-5 profile-custom-card mb-4">
+                <div class="profile-form-container">
                     @include('profile.partials.update-password-form')
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
+            <!-- Bloque 3: Eliminar Cuenta -->
+            <div class="card p-4 p-sm-5 profile-custom-card border-danger-subtle">
+                <div class="profile-form-container">
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>
+
         </div>
     </div>
-</x-app-layout>
+</div>

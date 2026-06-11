@@ -1,0 +1,149 @@
+
+
+.profile-main-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 2px dashed #ffb6d5;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* Tarjetas de los bloques de Laravel */
+.profile-custom-card {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 2px solid #ffe7a6 !important; /* Tu color amarillo pastel */
+    border-radius: 20px !important;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Forzar que todos los inputs dentro de los formularios nativos de Laravel sigan tu estilo */
+.profile-form-container input[type="text"],
+.profile-form-container input[type="email"],
+.profile-form-container input[type="password"],
+.profile-form-container select,
+.profile-form-container textarea {
+    font-family: 'Playwrite NZ Basic', cursive !important;
+    border: 2px solid #ffe7a6 !important;
+    border-radius: 10px !important;
+    padding: 10px 15px !important;
+    background-color: #fff !important;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.profile-form-container input:focus {
+    border-color: #ffb6d5 !important; /* Rosa al hacer foco */
+    box-shadow: 0 0 0 0.25rem rgba(255, 182, 213, 0.25) !important;
+    outline: none;
+}
+
+/* Estilo para los botones primarios que vienen dentro de los parciales */
+.profile-form-container button[type="submit"],
+.profile-form-container .btn-primary {
+    font-family: 'Playwrite NZ Basic', cursive !important;
+    background-color: #ffb6d5 !important; /* Tu rosa original */
+    border: none !important;
+    color: #333 !important;
+    font-weight: bold !important;
+    padding: 10px 20px !important;
+    border-radius: 10px !important;
+    transition: all 0.3s ease !important;
+}
+
+.profile-form-container button[type="submit"]:hover {
+    background-color: #ffa0c5 !important;
+    transform: translateY(-2px);
+}
+
+/* Ajuste específico para el bloque peligroso de eliminar cuenta */
+.border-danger-subtle {
+    border: 2px solid #f8d7da !important;
+}
+
+/* Botón de Guardar con tu Rosa Pastel Original */
+.btn-custom-save {
+    font-family: 'Playwrite NZ Basic', cursive !important;
+    background-color: #ffb6d5 !important;
+    border: none !important;
+    color: #333 !important;
+    font-weight: bold !important;
+    padding: 10px 25px !important;
+    border-radius: 10px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.btn-custom-save:hover {
+    background-color: #ffa0c5 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos internos de sección */
+.section-title {
+    font-size: 1.3rem;
+    color: #333;
+    border-bottom: 2px dashed #ffb6d5;
+    padding-bottom: 5px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+/* Botón de Volver Personalizado */
+.btn-custom-back {
+    font-family: 'Playwrite NZ Basic', cursive !important;
+    background-color: #f8f9fa !important; /* Fondo gris muy claro y limpio */
+    border: 2px solid #ffe7a6 !important; /* Borde amarillo pastel para combinar */
+    color: #555 !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+    padding: 10px 20px !important;
+    border-radius: 10px !important;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.btn-custom-back:hover {
+    background-color: #ffe7a6 !important; /* Se vuelve amarillo pastel al pasar el mouse */
+    color: #333 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+
+
+/* Contenedor de la zona de peligro */
+.danger-zone-box {
+    background-color: rgba(255, 245, 245, 0.8) !important; /* Fondo sutil rojizo transparente */
+    border: 2px dashed #f8d7da !important;
+    border-radius: 20px !important;
+}
+
+/* Limitar ancho del input de contraseña para que no se extienda al 100% */
+.max-width-input {
+    max-width: 400px;
+}
+
+/* Botón definitivo de eliminación */
+.btn-custom-delete {
+    font-family: 'Playwrite NZ Basic', cursive !important;
+    background-color: #ffb6d5 !important; /* Tu rosa base */
+    border: 2px solid #dc3545 !important; /* Borde rojo para advertencia */
+    color: #333 !important;
+    font-weight: bold !important;
+    padding: 10px 25px !important;
+    border-radius: 10px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.btn-custom-delete:hover {
+    background-color: #dc3545 !important; /* Se vuelve rojo al peligro */
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.2);
+}
