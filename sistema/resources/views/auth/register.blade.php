@@ -114,19 +114,6 @@
                 </div>
             </div>
 
-            <div>
-                <x-input-label for="direccion_cliente" value="Dirección" />
-                <x-text-input 
-                    id="direccion_cliente" 
-                    class="block mt-1 w-full" 
-                    type="text" 
-                    name="direccion_cliente" 
-                    :value="old('direccion_cliente')" 
-                    required 
-                />
-                <x-input-error :messages="$errors->get('direccion_cliente')" class="mt-2" />
-            </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <x-input-label for="password" value="Contraseña" />
