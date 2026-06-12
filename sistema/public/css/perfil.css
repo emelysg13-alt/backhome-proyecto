@@ -1,149 +1,128 @@
+body {
+    margin: 0;
+    font-family: 'Playwrite NZ Basic', cursive;
+    background: linear-gradient(180deg, #ffd9ec, #fff4cc);
+    background-image:
+        url("https://www.transparenttextures.com/patterns/paw-print.png"),
+        linear-gradient(180deg, #ffd9ec, #fff4cc);
+    background-blend-mode: overlay;
+    min-height: 100vh;
+}
 
+/* Navbar de perfil independiente */
+.custom-navbar {
+    background-color: rgba(255, 254, 250, 0.95) !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 15px 0;
+}
 
-.profile-main-title {
-    font-size: 1.8rem;
+.btn-logout {
+    background: #6c757d;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 10px;
     font-weight: bold;
-    color: #333;
-    border-bottom: 2px dashed #ffb6d5;
-    padding-bottom: 10px;
-    display: inline-block;
+    font-size: 0.85rem;
 }
 
-/* Tarjetas de los bloques de Laravel */
-.profile-custom-card {
-    background: rgba(255, 255, 255, 0.85) !important;
-    border: 2px solid #ffe7a6 !important; /* Tu color amarillo pastel */
-    border-radius: 20px !important;
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.05) !important;
+/* Tarjetas Curvas del Boceto */
+.card-profile-left {
+    background-color: #ffffff !important;
+    border-radius: 24px !important;
+    border: 2px solid #fff4cc !important;
 }
 
-/* Forzar que todos los inputs dentro de los formularios nativos de Laravel sigan tu estilo */
-.profile-form-container input[type="text"],
-.profile-form-container input[type="email"],
-.profile-form-container input[type="password"],
-.profile-form-container select,
-.profile-form-container textarea {
-    font-family: 'Playwrite NZ Basic', cursive !important;
-    border: 2px solid #ffe7a6 !important;
-    border-radius: 10px !important;
-    padding: 10px 15px !important;
-    background-color: #fff !important;
-    font-size: 0.9rem;
-    color: #333;
+.card-profile-right {
+    background-color: #ffffff !important;
+    border-radius: 24px !important;
+    border: 2px solid #ffd9ec !important;
 }
 
-.profile-form-container input:focus {
-    border-color: #ffb6d5 !important; /* Rosa al hacer foco */
-    box-shadow: 0 0 0 0.25rem rgba(255, 182, 213, 0.25) !important;
-    outline: none;
+/* Contenedor del avatar circular centrado */
+.avatar-wrapper {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #ff9dc3;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    position: relative; /* Clave para que la cámara no se mueva de su lugar */
+    display: inline-block; /* Evita que el contenedor use más ancho del necesario */
 }
 
-/* Estilo para los botones primarios que vienen dentro de los parciales */
-.profile-form-container button[type="submit"],
-.profile-form-container .btn-primary {
-    font-family: 'Playwrite NZ Basic', cursive !important;
-    background-color: #ffb6d5 !important; /* Tu rosa original */
-    border: none !important;
-    color: #333 !important;
-    font-weight: bold !important;
-    padding: 10px 20px !important;
-    border-radius: 10px !important;
-    transition: all 0.3s ease !important;
+.profile-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.profile-form-container button[type="submit"]:hover {
-    background-color: #ffa0c5 !important;
-    transform: translateY(-2px);
-}
-
-/* Ajuste específico para el bloque peligroso de eliminar cuenta */
-.border-danger-subtle {
-    border: 2px solid #f8d7da !important;
-}
-
-/* Botón de Guardar con tu Rosa Pastel Original */
-.btn-custom-save {
-    font-family: 'Playwrite NZ Basic', cursive !important;
-    background-color: #ffb6d5 !important;
-    border: none !important;
-    color: #333 !important;
-    font-weight: bold !important;
-    padding: 10px 25px !important;
-    border-radius: 10px !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.btn-custom-save:hover {
-    background-color: #ffa0c5 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Títulos internos de sección */
-.section-title {
-    font-size: 1.3rem;
-    color: #333;
-    border-bottom: 2px dashed #ffb6d5;
-    padding-bottom: 5px;
-    display: inline-block;
-    margin-bottom: 15px;
-}
-
-/* Botón de Volver Personalizado */
-.btn-custom-back {
-    font-family: 'Playwrite NZ Basic', cursive !important;
-    background-color: #f8f9fa !important; /* Fondo gris muy claro y limpio */
-    border: 2px solid #ffe7a6 !important; /* Borde amarillo pastel para combinar */
-    color: #555 !important;
-    text-decoration: none !important;
-    font-weight: bold !important;
-    padding: 10px 20px !important;
-    border-radius: 10px !important;
-    display: inline-flex;
+/* La camarita perfectamente posicionada sobre el borde inferior */
+.change-photo-badge {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: #ff9dc3;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+    transition: background 0.2s, transform 0.2s;
 }
 
-.btn-custom-back:hover {
-    background-color: #ffe7a6 !important; /* Se vuelve amarillo pastel al pasar el mouse */
-    color: #333 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+.change-photo-badge:hover {
+    background: #ffa0c5;
+    transform: scale(1.1); /* Efecto pop sutil al pasar el mouse */
 }
 
+/* Etiquetas e Inputs */
+.info-title-label { font-weight: bold; color: #888; }
+.edit-accent-label { font-weight: bold; color: #dc3545; cursor: pointer; }
+.badge-role { background-color: #eee; padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; }
+.status-active { color: #198754; font-size: 0.75rem; font-weight: bold; }
 
-
-
-/* Contenedor de la zona de peligro */
-.danger-zone-box {
-    background-color: rgba(255, 245, 245, 0.8) !important; /* Fondo sutil rojizo transparente */
-    border: 2px dashed #f8d7da !important;
-    border-radius: 20px !important;
+.custom-input {
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #fff;
 }
 
-/* Limitar ancho del input de contraseña para que no se extienda al 100% */
-.max-width-input {
-    max-width: 400px;
+/* Estilo visual cuando el campo está bloqueado (Solo lectura) */
+.custom-input:disabled {
+    background-color: #fdfdfd !important;
+    border-color: #eee !important;
+    color: #666 !important;
+    box-shadow: none;
 }
 
-/* Botón definitivo de eliminación */
-.btn-custom-delete {
-    font-family: 'Playwrite NZ Basic', cursive !important;
-    background-color: #ffb6d5 !important; /* Tu rosa base */
-    border: 2px solid #dc3545 !important; /* Borde rojo para advertencia */
-    color: #333 !important;
-    font-weight: bold !important;
-    padding: 10px 25px !important;
-    border-radius: 10px !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+/* Botones inferiores */
+.btn-trigger-delete {
+    background: none;
+    border: 2px solid #dc3545;
+    color: #dc3545;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 0.8rem;
 }
 
-.btn-custom-delete:hover {
-    background-color: #dc3545 !important; /* Se vuelve rojo al peligro */
-    color: white !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.2);
+.divider-pink-line {
+    height: 4px;
+    background-color: #ff9dc3;
+    border-radius: 2px;
+}
+
+.section-title-pink { color: #ff9dc3; font-weight: bold; font-size: 1.25rem; }
+
+.btn-create-plus-green {
+    color: #198754;
+    border: 2px solid #198754;
+    padding: 6px 16px;
+    border-radius: 10px;
+    font-weight: bold;
 }

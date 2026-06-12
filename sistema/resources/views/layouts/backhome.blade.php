@@ -4,38 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Back Home 🐾</title>
-
+    
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ+Basic&display=swap" rel="stylesheet">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <link rel="stylesheet"
-href="{{ asset('css/backhome.css') }}">
-
-<script src="{{ asset('js/backhome.js') }}" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('css/backhome.css') }}">
+    <script src="{{ asset('js/backhome.js') }}" defer></script>
 </head>
 
 <body>
 
-<div id="loader-wrapper">
-    <img src="{{ asset('gif/cargando.gif') }}" alt="Cargando..." class="loader-cat">
-</div>
-
-<div id="content">
+    <div id="loader-wrapper">
+        <img src="{{ asset('gif/cargando.gif') }}" alt="Cargando..." class="loader-cat">
     </div>
 
-
-
-    <header>
-        <h1>🐾 Back Home</h1>
-        <p>Encuentra mascotas perdidas o ayúdalas a volver a casa</p>
-    </header>
-
-    <nav class="navbar navbar-expand-xl custom-navbar sticky-top">
-        <div class="container-fluid px-4">
+<nav class="navbar navbar-expand-xl custom-navbar sticky-top">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand" href="/" style="font-family: 'Playwrite NZ Basic', cursive; font-weight: bold;">
+        
+            <img src="{{ asset('img/Logo.png') }}" class="logo-backhome" alt="Logo" /> 
+            <span style="color: #ff9dc3;">BackHome</span>
+        </a>
             
             <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,19 +33,11 @@ href="{{ asset('css/backhome.css') }}">
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                
-                <ul class="navbar-nav me-auto align-items-center">
-                    <li class="nav-item">
-                        <a href="/" class="nav-link">🏠 Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('descargar.reportes') }}" class="nav-link btn btn-danger">
-                            📄 Descargar Reportes de Animales
-                        </a>
-                    </li>
+                <ul class="navbar-nav mx-auto align-items-center">
+    
                     @auth
                     <li class="nav-item">
-                        <a href="/crear" class="nav-link btn btn-success">
+                        <a href="/crear" class="nav-link btn-success-custom">
                             🐾 Crear Seguimiento
                         </a>
                     </li>
@@ -64,9 +46,6 @@ href="{{ asset('css/backhome.css') }}">
 
                 <div class="navbar-nav align-items-center">
                     @guest
-                        <span class="guest-text">
-                            Debes iniciar sesión para crear un seguimiento.
-                        </span>
                         <a href="{{ route('login') }}" class="nav-link">
                             Iniciar Sesión
                         </a>
@@ -92,7 +71,24 @@ href="{{ asset('css/backhome.css') }}">
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <section class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1924&auto=format&fit=crop');">
+        <div class="hero-overlay"></div>
+        <div class="container hero-container text-start">
+            <div class="hero-content-box">
+                <h1 class="hero-title">BACKHOME</h1>
+                <p class="hero-description">
+                    Encuentra a tu mejor amigo para compartir tu mejor tiempo. Ayuda a reunir a las mascotas perdidas con sus familias.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/contacto" class="btn-hero-contact">
+                        Contacto 🐾
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container mt-solapado">
         @yield('contenido')
     </div>
 

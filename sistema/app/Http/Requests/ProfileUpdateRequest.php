@@ -21,9 +21,7 @@ class ProfileUpdateRequest extends FormRequest
             'primer_apellido'   => ['required', 'string', 'max:100'],
             'segundo_apellido'  => ['nullable', 'string', 'max:100'],
             'numero_tel'        => ['nullable', 'string', 'max:20'],
-            
-            // Si también envías la dirección del cliente en este formulario:
-            'direccion_cliente' => ['nullable', 'string', 'max:255'], 
+            'foto_perfil'       => ['nullable', 'image', 'max:2048'], // Validación para la imagen de perfil
 
             // Arreglamos la validación del Email
             'email' => [

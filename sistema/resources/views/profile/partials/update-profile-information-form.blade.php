@@ -16,7 +16,18 @@
     <form method="post" action="{{ route('profile.update') }}" class="mt-4">
         @csrf
         @method('patch')
+<!-- Busca la apertura de tu <form> e introduce la propiedad de archivos binarios enctype -->
+<form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-4">
+    @csrf
+    @method('patch')
 
+    <!-- Agrega este input oculto en cualquier sección interna del formulario -->
+    <!-- Se conecta automáticamente con el id vinculante "foto_perfil_input" de la cámara -->
+    <input type="file" id="foto_perfil_input" name="foto_perfil" class="d-none" accept="image/*" onchange="this.form.submit();">
+
+    <!-- ... El resto de tus campos de texto (primer_nombre, email, etc.) permanecen igual ... -->
+
+    
         <div class="row g-3 mb-3">
             <div class="col-md-6">
                 <label for="primer_nombre" class="form-label">Primer Nombre</label>
