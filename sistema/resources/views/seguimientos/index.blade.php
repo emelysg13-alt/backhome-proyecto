@@ -117,7 +117,11 @@
 
 <div class="card shadow h-100">
 
-<img src="{{ $reporte->imagenPrincipal->ruta_imagen }}" class="card-img-top" style="height:250px; object-fit:cover;" alt="Imagen del reporte">
+<img
+src="{{ asset('storage/' . ($reporte->imagenPrincipal->ruta_imagen ?? 'sin-imagen.jpg')) }}"
+class="card-img-top"
+style="height:250px; object-fit:cover;"
+alt="Imagen del reporte">
 
 <div class="card-body">
 
@@ -231,11 +235,48 @@ No registrada
 
 <a
 href="/historial/{{ $reporte->id_seguimiento }}"
-class="btn btn-info">
+class="btn btn-info mb-2">
 
 Ver Historial
 
 </a>
+
+<br>
+
+<a
+href="/ver/{{ $reporte->id_seguimiento }}"
+class="btn btn-primary mb-2">
+
+Ver
+
+</a>
+
+<a
+href="/editar/{{ $reporte->id_seguimiento }}"
+class="btn btn-warning mb-2">
+
+Editar
+
+</a>
+
+<form
+action="/eliminar/{{ $reporte->id_seguimiento }}"
+method="POST"
+style="display:inline;">
+
+@csrf
+@method('DELETE')
+
+<button
+type="submit"
+class="btn btn-danger"
+onclick="return confirm('¿Deseas eliminar este reporte?')">
+
+Eliminar
+
+</button>
+
+</form>
 
 </div>
 

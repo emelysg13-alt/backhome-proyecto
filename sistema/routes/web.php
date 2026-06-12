@@ -48,6 +48,20 @@ Route::middleware(['auth', 'cliente'])->group(function () {
 Route::delete('/eliminar/{id}', [SeguimientoController::class,'destroy']);
 
 Route::get('/historial/{id}', [SeguimientoController::class,'historial']);
+Route::get(
+    '/ver/{id}',
+    [SeguimientoController::class,'show']
+)->name('seguimientos.show');
+
+Route::get(
+    '/editar/{id}',
+    [SeguimientoController::class,'edit']
+)->name('seguimientos.edit');
+
+Route::put(
+    '/actualizar/{id}',
+    [SeguimientoController::class,'update']
+)->name('seguimientos.update');
 
 
 /*Route::get('/', function () {

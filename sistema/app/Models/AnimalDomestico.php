@@ -11,4 +11,10 @@ class AnimalDomestico extends Model
     protected $primaryKey = 'id_animal_d';
 
     public $timestamps = false;
+
+    protected $fillable = [
+        'animal_id',
+        'especie',
+        'raza'
+    ];
 }

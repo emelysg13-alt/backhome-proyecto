@@ -12,6 +12,12 @@ class Animal extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'sexo',
+        'color',
+        'descripcion'
+    ];
+
     public function domestico()
     {
         return $this->hasOne(

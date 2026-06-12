@@ -12,6 +12,11 @@ class Lugar extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'direccion',
+        'localidad_id'
+    ];
+
     public function localidad()
     {
         return $this->belongsTo(

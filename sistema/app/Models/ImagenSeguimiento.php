@@ -14,6 +14,7 @@ class ImagenSeguimiento extends Model
 
     protected $fillable = [
         'seguimiento_id',
-        'ruta_imagen'
+        'ruta_imagen',
+        'imagen_principal'
     ];
 }
