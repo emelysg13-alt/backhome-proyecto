@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
             'confirmed',
             \Illuminate\Validation\Rules\Password::defaults()
         ],
-        'direccion_cliente' => 'required|string|max:255',
+        
     ]);
 
     $user = User::create([
@@ -83,7 +83,7 @@ class RegisteredUserController extends Controller
 
     Cliente::create([
         'persona_id' => $user->id_persona,
-        'direccion_cliente' => $request->direccion_cliente,
+        
     ]);
 
    Auth::login($user);
