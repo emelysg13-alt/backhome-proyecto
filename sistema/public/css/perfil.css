@@ -126,3 +126,13 @@ body {
     border-radius: 10px;
     font-weight: bold;
 }
+
+
+.logo-backhome {
+    width: auto;
+    height: 75px; 
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 8px; /* Espacio entre el logo y el texto */
+    display: inline-block;
+}

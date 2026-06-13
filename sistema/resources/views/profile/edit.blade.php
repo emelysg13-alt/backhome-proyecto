@@ -14,8 +14,9 @@
     <nav class="navbar navbar-expand-xl custom-navbar sticky-top">
         <div class="container-fluid px-4">
             <a class="navbar-brand" href="/" style="font-family: 'Playwrite NZ Basic', cursive; font-weight: bold;">
-                🐾 <span style="color: #ff9dc3;">BackHome</span>
-            </a>
+                <img src="{{ asset('img/Logo.png') }}" class="logo-backhome" alt="Logo" /> 
+            <span style="color: #ff9dc3;">BackHome</span>
+        </a>
             <div class="ms-auto">
                 <a href="/" class="btn-custom-link btn-logout text-decoration-none">CERRAR</a>
             </div>
