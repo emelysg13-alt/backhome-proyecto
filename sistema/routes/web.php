@@ -1,11 +1,19 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SeguimientoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\PdfController;
+
+
+
+Route::get('/cuenta-restringida', function () {
+    if (!Auth::check()) return redirect('/login');
+    return view('auth.suspendido');
+})->name('cuenta.restringida');
 
 
 Route::get('/descargar-reportes', [PdfController::class, 'descargar'])

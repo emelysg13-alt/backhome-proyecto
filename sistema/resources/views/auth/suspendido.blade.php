@@ -25,7 +25,7 @@
 </head>
 <body>
 
-    @if(Auth::user()->estado === 'suspendido')
+    @if(auth()->check() && strtolower(auth()->user()->estado) === 'suspendido')
     <div class="modal fade" id="statusModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-center p-4">
@@ -37,7 +37,7 @@
                     <p class="text-muted mb-4">Lo sentimos, tu cuenta se encuentra temporalmente suspendida por los administradores de BackHome.</p>
                     
                     <div class="d-grid gap-2">
-                        <a href="mailto:soporte@backhome.com?subject=Cuenta Suspendida - ID: {{ Auth::user()->id_persona }}" class="btn py-2 fw-bold text-white" style="background-color: #ff9dc3; border-radius:12px;">
+                        <a href="/contacto" class="btn py-2 fw-bold text-white" style="background-color: #ff9dc3; border-radius:12px;">
                             <i class="bi bi-envelope-fill"></i> Contactar al Administrador
                         </a>
                         <a href="#" class="btn btn-light py-2 fw-bold text-muted border" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -50,7 +50,7 @@
     </div>
     @endif
 
-    @if(Auth::user()->estado === 'bloqueado')
+    @if(auth()->check() && strtolower(auth()->user()->estado) === 'bloqueado')
     <div class="modal fade" id="statusModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-center p-4">
@@ -62,7 +62,8 @@
                     <p class="text-muted mb-4">Esta cuenta ha sido bloqueada permanentemente y no puede acceder al sistema.</p>
                     
                     <div class="d-grid gap-2">
-                        <a href="/register" class="btn py-2 fw-bold text-white" style="background-color: #198754; border-radius:12px;">
+                        <a href="/register" class="btn py-2 fw-bold text-white" style="background-color: #198754; border-radius:12px;" 
+                           onclick="event.preventDefault(); document.getElementById('logout-to-register-form').submit();">
                             <i class="bi bi-person-plus-fill"></i> Crear Nueva Cuenta
                         </a>
                         <a href="#" class="btn btn-light py-2 fw-bold text-muted border" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -79,11 +80,18 @@
         @csrf
     </form>
 
+    <form id="logout-to-register-form" action="{{ route('logout') }}?redirect_to=register" method="POST" class="d-none">
+        @csrf
+    </form>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Forzar a que la ventana emergente se abra automáticamente al cargar la página
-        const myModal = new Bootstrap.Modal(document.getElementById('statusModal'));
-        myModal.show();
+        // CORRECCIÓN: 'bootstrap' con minúscula inicial para que inicialice el modal sin romperse
+        const modalElement = document.getElementById('statusModal');
+        if (modalElement) {
+            const myModal = new bootstrap.Modal(modalElement);
+            myModal.show();
+        }
     </script>
 </body>
 </html>

@@ -38,8 +38,8 @@
 
                     <div class="position-relative d-inline-block mx-auto my-3" style="width: 150px; height: 150px;">
                         
-                        <div class="avatar-wrapper w-100 h-100 rounded-circle overflow-hidden border border-3" style="border-color: #ff9dc3 class; background-color: #f8f9fa;">
-                            <img src="{{ $user->foto_perfil ? asset($user->foto_perfil) : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' }}" 
+                        <div class="avatar-wrapper w-100 h-100 rounded-circle overflow-hidden border border-3" style="border-color: #ff9dc3; background-color: #f8f9fa;">
+                            <img src="{{ $user->foto_perfil ? asset($user->foto_perfil) : 'https://i.pinimg.com/736x/e0/e2/49/e0e249dbb878081e427f627d91d29aeb.jpg' }}" 
                                  alt="Foto de perfil" class="w-100 h-100" style="object-fit: cover;">
                         </div>
                         
