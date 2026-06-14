@@ -1,14 +1,16 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SeguimientoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\PdfController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 
+Route::get('/', [SeguimientoController::class, 'index'])->name('seguimientos.index');
+Route::get('/historial/{id}', [SeguimientoController::class, 'historial'])->name('seguimientos.historial');
 
 Route::get('/cuenta-restringida', function () {
     if (!Auth::check()) return redirect('/login');
@@ -16,100 +18,40 @@ Route::get('/cuenta-restringida', function () {
 })->name('cuenta.restringida');
 
 
-Route::get('/descargar-reportes', [PdfController::class, 'descargar'])
-    ->name('descargar.reportes');
-
-
-//ADMINISTRADOR
-
-Route::resource(
-'usuarios',
-UsuarioController::class
-);
-
-Route::get(
-'/animales',
-[AnimalController::class,'index']
-)->name('animales.index');
-
-Route::get('/reportes', function () {
-    return view('reportes.index');
-})->name('reportes.index');
-
-
-//SEGUIMIENTOS
-
-Route::get('/', [SeguimientoController::class,'index']);
-
-Route::middleware(['auth', 'cliente'])->group(function () {
-
-    Route::get('/crear',
-        [SeguimientoController::class,'create'])
-        ->name('seguimientos.create');
-
-    Route::post('/guardar',
-        [SeguimientoController::class,'store'])
-        ->name('seguimientos.store');
-
-});
-
-Route::delete('/eliminar/{id}', [SeguimientoController::class,'destroy']);
-
-Route::get('/historial/{id}', [SeguimientoController::class,'historial']);
-Route::get(
-    '/ver/{id}',
-    [SeguimientoController::class,'show']
-)->name('seguimientos.show');
-
-Route::get(
-    '/editar/{id}',
-    [SeguimientoController::class,'edit']
-)->name('seguimientos.edit');
-
-Route::put(
-    '/actualizar/{id}',
-    [SeguimientoController::class,'update']
-)->name('seguimientos.update');
-
-
-/*Route::get('/', function () {
-    return view('welcome');
-});
-*/
-
-/*Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-*/
-
-
 Route::middleware('auth')->group(function () {
+
+    Route::get('/perfil/{id_persona}', [ProfileController::class, 'verPerfil'])->name('profile.view');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/descargar-reportes', [PdfController::class, 'descargar'])->name('descargar.reportes');
+
+  
+    Route::get('/seguimientos/{id}/edit', [SeguimientoController::class, 'edit'])->name('seguimientos.edit');
+    Route::put('/seguimientos/{id}', [SeguimientoController::class, 'update'])->name('seguimientos.update');
+    Route::delete('/seguimientos/{id}', [SeguimientoController::class, 'destroy'])->name('seguimientos.destroy');
+
+  
+    Route::middleware('cliente')->group(function () {
+        Route::get('/crear', [SeguimientoController::class, 'create'])->name('seguimientos.create');
+        Route::post('/guardar', [SeguimientoController::class, 'store'])->name('seguimientos.store');
+    });
+
+   
+    Route::middleware('admin')->group(function () {
+        Route::get('/admin/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+
+        Route::resource('usuarios', UsuarioController::class);
+        Route::get('/animales', [AnimalController::class, 'index'])->name('animales.index');
+        Route::get('/reportes', function () {
+            return view('reportes.index');
+        })->name('reportes.index');
+    });
+
 });
 
 require __DIR__.'/auth.php';
-
-
-
-
-
-
-
-Route::middleware(['auth', 'admin'])->group(function () {
-    
-    Route::get('/admin/dashboard', function () {
-        return view('admin/dashboard');
-    })->name('admin.dashboard');
-
-    Route::resource('usuarios', UsuarioController::class);
-
-    Route::get('/animales', [AnimalController::class,'index'])
-        ->name('animales.index');
-
-    Route::get('/reportes', function () {
-        return view('reportes.index');
-    })->name('reportes.index');
-
-});

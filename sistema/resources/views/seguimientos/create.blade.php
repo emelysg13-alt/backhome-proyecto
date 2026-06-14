@@ -89,6 +89,8 @@ class="form-control">
 
 <hr>
 
+<hr>
+
 <h5 class="mb-3">
 🐾 Información de la Mascota
 </h5>
@@ -96,47 +98,44 @@ class="form-control">
 <div class="row">
 
 <div class="col-md-6 mb-3">
-
-<label>
-Especie
-</label>
-
-<input
-type="text"
-name="especie"
-class="form-control"
-placeholder="Perro, Gato...">
-
+    <label class="form-label">Tipo de Animal</label>
+    <select name="tipo_animal" id="tipo_animal" class="form-control" required>
+        <option value="domestico">🐶 Doméstico (Perro, Gato, etc.)</option>
+        <option value="exotico">🦜 Exótico (Aves, Reptiles, etc.)</option>
+    </select>
 </div>
 
 <div class="col-md-6 mb-3">
-
-<label>
-Raza
-</label>
-
-<input
-type="text"
-name="raza"
-class="form-control"
-placeholder="Labrador, Criollo...">
-
+    <label>Especie</label>
+    <input
+    type="text"
+    name="especie"
+    class="form-control"
+    placeholder="Ej: Perro, Gato, Loro..."
+    required>
 </div>
 
 </div>
 
 <div class="row">
 
+<div class="col-md-6 mb-3" id="campo_raza">
+    <label>Raza (Opcional)</label>
+    <input
+    type="text"
+    name="raza"
+    class="form-control"
+    placeholder="Ej: Labrador, Criollo...">
+</div>
+
 <div class="col-md-6 mb-3">
-
-<label>
-Color
-</label>
-
-<input
-type="text"
-name="color"
-class="form-control">
+    <label>Color</label>
+    <input
+    type="text"
+    name="color"
+    class="form-control"
+    required>
+</div>
 
 </div>
 
@@ -175,31 +174,25 @@ Desconocido
 </h5>
 
 <div class="mb-3">
-
-<label>
-Dirección
-</label>
-
-<input
-type="text"
-name="direccion"
-class="form-control"
-placeholder="Lugar donde fue visto">
-
+    <label>Dirección</label>
+    <input
+    type="text"
+    name="direccion"
+    class="form-control"
+    placeholder="Lugar donde fue visto"
+    required>
 </div>
 
 <div class="mb-3">
-
-<label>
-Localidad
-</label>
-
-<input
-type="text"
-name="localidad"
-class="form-control"
-placeholder="Suba, Engativá, Kennedy...">
-
+    <label>Localidad</label>
+    <select name="localidad_id" class="form-control" required>
+        <option value="">-- Seleccione una Localidad --</option>
+        @foreach ($localidades as $localidad)
+            <option value="{{ $localidad->id_localidad }}">
+                {{ $localidad->n_localidad }}
+            </option>
+        @endforeach
+    </select>
 </div>
 
 <hr>

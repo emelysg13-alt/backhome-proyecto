@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Animal;
 use App\Models\AnimalDomestico;
+use App\Models\AnimalExotico; 
 use App\Models\Cliente;
 use App\Models\ImagenSeguimiento;
+use App\Models\Localidad; 
 use App\Models\Lugar;
 use App\Models\Seguimiento;
 use Illuminate\Http\Request;
@@ -42,21 +44,29 @@ class SeguimientoController extends Controller
 
     public function create()
     {
+        
+        $localidades = Localidad::all();
+
+      
         return view(
-            'seguimientos.create'
+            'seguimientos.create', 
+            compact('localidades')
         );
     }
 
+ 
     public function store(Request $request)
     {
         $request->validate([
             'titulo' => 'required|max:150',
             'descripcion' => 'required',
+            'tipo_animal' => 'required|in:domestico,exotico',
             'especie' => 'required',
-            'raza' => 'required',
+            'raza' => 'nullable|max:100',
             'sexo' => 'required',
             'color' => 'required',
-            'direccion' => 'required'
+            'direccion' => 'required',
+            'localidad_id' => 'required|exists:localidades,id_localidad'
         ]);
 
         DB::transaction(function () use ($request) {
@@ -67,15 +77,22 @@ class SeguimientoController extends Controller
                 'descripcion' => $request->descripcion
             ]);
 
-            AnimalDomestico::create([
-                'animal_id' => $animal->id_animal,
-                'especie' => $request->especie,
-                'raza' => $request->raza
-            ]);
+            if ($request->tipo_animal === 'domestico') {
+                AnimalDomestico::create([
+                    'animal_id' => $animal->id_animal,
+                    'especie' => $request->especie,
+                    'raza' => $request->raza ?? 'Sin especificar'
+                ]);
+            } else {
+                AnimalExotico::create([
+                    'animal_id' => $animal->id_animal,
+                    'especie' => $request->especie
+                ]);
+            }
 
             $lugar = Lugar::create([
                 'direccion' => $request->direccion,
-                'localidad_id' => 1
+                'localidad_id' => $request->localidad_id
             ]);
 
             $cliente = Cliente::where(
@@ -93,9 +110,7 @@ class SeguimientoController extends Controller
             ]);
 
             if ($request->hasFile('imagenes')) {
-
                 foreach ($request->file('imagenes') as $index => $imagen) {
-
                     $ruta = $imagen->store(
                         'seguimientos',
                         'public'
@@ -117,13 +132,16 @@ class SeguimientoController extends Controller
             );
     }
 
+  
     public function show($id)
     {
+    
         $reporte = Seguimiento::with([
             'animal.domestico',
             'animal.exotico',
             'lugar.localidad',
-            'historial'
+            'historial',
+            'cliente'
         ])->findOrFail($id);
 
         return view(
@@ -131,40 +149,47 @@ class SeguimientoController extends Controller
             compact('reporte')
         );
     }
-
-    public function edit($id)
+  public function edit($id)
     {
-        $reporte = Seguimiento::findOrFail($id);
+      
+        $reporte = Seguimiento::with('lugar')->findOrFail($id);
+
+        $localidades = \App\Models\Localidad::all();
+
 
         return view(
             'seguimientos.edit',
-            compact('reporte')
+            compact('reporte', 'localidades')
         );
     }
 
-    public function update(Request $request, $id)
-    {
-        $reporte = Seguimiento::findOrFail($id);
+public function update(Request $request, $id)
+{
+   
+    $request->validate([
+        'titulo' => 'required|max:150',
+        'estado' => 'required' 
+    ]);
 
-        $reporte->update([
-            'titulo' => $request->titulo,
-            'descripcion' => $request->descripcion,
-            'estado_reporte' => $request->estado
-        ]);
+    $reporte = Seguimiento::findOrFail($id);
 
-        return redirect('/')
-            ->with(
-                'success',
-                'Reporte actualizado correctamente'
-            );
-    }
+    $reporte->update([
+        'titulo' => $request->titulo,
+        'estado_reporte' => $request->estado
+    ]);
 
-    public function destroy($id)
-    {
-        Seguimiento::findOrFail($id)->delete();
+    return redirect('/')->with('success', 'Reporte actualizado correctamente. 🐾');
+}
 
-        return redirect('/');
-    }
+public function destroy($id)
+{
+
+    $reporte = Seguimiento::findOrFail($id);
+    $reporte->delete();
+
+
+    return redirect('/')->with('success', 'El reporte ha sido eliminado correctamente.');
+}
 
     public function historial($id)
     {
@@ -180,4 +205,6 @@ class SeguimientoController extends Controller
             compact('reporte')
         );
     }
+
+    
 }

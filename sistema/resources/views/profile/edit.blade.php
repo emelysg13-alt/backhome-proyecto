@@ -15,8 +15,8 @@
         <div class="container-fluid px-4">
             <a class="navbar-brand" href="/" style="font-family: 'Playwrite NZ Basic', cursive; font-weight: bold;">
                 <img src="{{ asset('img/Logo.png') }}" class="logo-backhome" alt="Logo" /> 
-            <span style="color: #ff9dc3;">BackHome</span>
-        </a>
+                <span style="color: #ff9dc3;">BackHome</span>
+            </a>
             <div class="ms-auto">
                 <a href="/" class="btn-custom-link btn-logout text-decoration-none">CERRAR</a>
             </div>
@@ -26,7 +26,7 @@
     <div class="container my-5 profile-container-main">
         <div class="row g-4 align-items-stretch">
             
-        <div class="col-md-4">
+            <div class="col-md-4">
                 <div class="card shadow card-profile-left h-100 text-center p-4">
                     <div class="d-flex justify-content-between align-items-center w-100 mb-3">
                         <span class="badge-role">
@@ -38,7 +38,6 @@
                     </div>
 
                     <div class="position-relative d-inline-block mx-auto my-3" style="width: 150px; height: 150px;">
-                        
                         <div class="avatar-wrapper w-100 h-100 rounded-circle overflow-hidden border border-3" style="border-color: #ff9dc3; background-color: #f8f9fa;">
                             <img src="{{ $user->foto_perfil ? asset($user->foto_perfil) : 'https://i.pinimg.com/736x/e0/e2/49/e0e249dbb878081e427f627d91d29aeb.jpg' }}" 
                                  alt="Foto de perfil" class="w-100 h-100" style="object-fit: cover;">
@@ -60,9 +59,11 @@
                 <div class="card shadow card-profile-right h-100 p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
                         <span class="info-title-label">INFO</span>
+                        @if($esMiPerfil)
                         <button type="button" id="btn-editar-perfil" class="btn p-0 edit-accent-label border-0 bg-transparent">
                             EDITAR <i class="bi bi-pencil-square"></i>
                         </button>
+                        @endif
                     </div>
 
                     <form id="profile-update-form" method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data">
@@ -109,45 +110,68 @@
                                    value="{{ old('email', $user->email) }}" disabled required />
                         </div>
 
+                        <div id="profile-actions-box" class="d-none mb-4 animate-fade-in">
+                            <button type="button" class="btn btn-success px-4 fw-bold rounded-3" data-bs-toggle="modal" data-bs-target="#saveSuccessModal">
+                                💾 GUARDAR DATOS
+                            </button>
+                        </div>
+                    </form> <form id="password-update-form" method="post" action="{{ route('password.update') }}">
+                        @csrf
+                        @method('put')
+
                         <div id="password-update-box" class="d-none mb-4 animate-fade-in">
                             <div class="p-3 rounded-4" style="background-color: #fff9fc; border: 1px dashed #ff9dc3;">
                                 <h6 class="fw-bold mb-3" style="color: #ff9dc3;">🔐 Actualizar Contraseña de Seguridad</h6>
                                 
                                 <div class="mb-2">
                                     <label class="form-label small fw-bold text-muted">Contraseña Actual</label>
-                                    <input name="current_password" type="password" class="form-control custom-input form-control-sm profile-editable-field" autocomplete="current-password" disabled />
+                                    <input name="current_password" type="password" class="form-control custom-input form-control-sm profile-editable-field @if($errors->updatePassword->has('current_password')) is-invalid @endif" autocomplete="current-password" disabled required />
+                                    
+                                    @if($errors->updatePassword->has('current_password'))
+                                        <span class="text-danger small fw-bold d-block mt-1 ps-1">
+                                            ⚠️ {{ $errors->updatePassword->first('current_password') }}
+                                        </span>
+                                    @endif
                                 </div>
 
                                 <div class="mb-2">
                                     <label class="form-label small fw-bold text-muted">Nueva Contraseña</label>
-                                    <input name="password" type="password" class="form-control custom-input form-control-sm profile-editable-field" autocomplete="new-password" disabled />
+                                    <input name="password" type="password" class="form-control custom-input form-control-sm profile-editable-field @if($errors->updatePassword->has('password')) is-invalid @endif" autocomplete="new-password" disabled required />
+                                    
+                                    @if($errors->updatePassword->has('password'))
+                                        <span class="text-danger small fw-bold d-block mt-1 ps-1">
+                                            ⚠️ {{ $errors->updatePassword->first('password') }}
+                                        </span>
+                                    @endif
                                 </div>
 
-                                <div class="mb-0">
+                                <div class="mb-3">
                                     <label class="form-label small fw-bold text-muted">Confirmar Nueva Contraseña</label>
-                                    <input name="password_confirmation" type="password" class="form-control custom-input form-control-sm profile-editable-field" autocomplete="new-password" disabled />
+                                    <input name="password_confirmation" type="password" class="form-control custom-input form-control-sm profile-editable-field" autocomplete="new-password" disabled required />
                                 </div>
-                            </div>
-                        </div>
 
-                        <div id="actions-form-box" class="d-none animate-fade-in">
-                            <button type="button" class="btn btn-success px-4 fw-bold rounded-3 me-2" data-bs-toggle="modal" data-bs-target="#saveSuccessModal">
-                                💾 GUARDAR
-                            </button>
-                            <button type="button" id="btn-cancelar-edicion" class="btn btn-secondary px-3 rounded-3">
-                                Cancelar
-                            </button>
+                                <button type="submit" class="btn btn-primary px-4 fw-bold rounded-3 w-100" style="background-color: #ff9dc3; border-color: #ff9dc3;">
+                                    🔒 CAMBIAR CONTRASEÑA
+                                </button>
+                            </div>
                         </div>
                     </form>
 
+                    <div id="cancel-actions-box" class="d-none animate-fade-in">
+                        <button type="button" id="btn-cancelar-edicion" class="btn btn-secondary px-3 rounded-3 w-100">
+                            Cancelar Edición
+                        </button>
+                    </div>
+
+                    @if($esMiPerfil)
                     <div class="text-end mt-4">
                         <button type="button" class="btn-trigger-delete" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
                             ELIMINAR CUENTA
                         </button>
                     </div>
+                    @endif
                 </div>
             </div>
-
         </div>
 
         <div class="divider-pink-line my-5"></div>
@@ -156,9 +180,11 @@
             <div class="col-6">
                 <h3 class="section-title-pink">SEGUIMIENTOS CREADOS</h3>
             </div>
+            @if($esMiPerfil)
             <div class="col-6 text-end">
                 <a href="/crear" class="btn-create-plus-green text-decoration-none">CREAR +</a>
             </div>
+            @endif
         </div>
 
         <div class="row mb-4 justify-content-center">
@@ -172,16 +198,35 @@
 
         <div class="row">
             @php
-                $misReportes = \App\Models\Seguimiento::where('cliente_id', $user->cliente->id_cliente ?? 0)->get();
+                $misReportes = \App\Models\Seguimiento::where('cliente_id', $user->cliente->id_cliente ?? 0)
+                    ->with('imagenes')
+                    ->orderBy('fecha_publicacion', 'desc')
+                    ->get();
             @endphp
 
             @forelse($misReportes as $reporte)
             <div class="col-md-6 col-lg-4 mb-4 tarjeta-mis-reportes">
-                <div class="card shadow-sm h-100 border-0" style="border-radius: 20px; overflow:hidden;">
-                    <img src="{{ $reporte->imagenPrincipal->ruta_imagen }}" class="card-img-top" style="height:200px; object-fit:cover;" alt="Mascota">
-                    <div class="card-body p-3">
-                        <h5 class="fw-bold m-0">{{ strtoupper($reporte->titulo) }}</h5>
-                        <p class="small text-muted m-0">📅 {{ date('d/m/Y', strtotime($reporte->fecha_publicacion)) }}</p>
+                <div class="card shadow-sm h-100 border-0 d-flex flex-column" style="border-radius: 20px; overflow:hidden;">
+                    @php
+                        $imagenPrincipal = $reporte->imagenes->where('imagen_principal', true)->first() ?? $reporte->imagenes->first();
+                    @endphp
+                    
+                    <img src="{{ $imagenPrincipal ? asset('storage/' . $imagenPrincipal->ruta_imagen) : 'https://i.pinimg.com/736x/e0/e2/49/e0e249dbb878081e427f627d91d29aeb.jpg' }}" 
+                         class="card-img-top" style="height:200px; object-fit:cover;" alt="Mascota">
+                    
+                    <div class="card-body p-3 d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="fw-bold m-0">{{ strtoupper($reporte->titulo) }}</h5>
+                            <p class="small text-muted m-0 mb-2">📅 {{ date('d/m/Y', strtotime($reporte->fecha_publicacion)) }}</p>
+                            <span class="badge bg-secondary mb-3">{{ strtoupper($reporte->estado_reporte) }}</span>
+                        </div>
+                        @if($esMiPerfil)
+                        <div class="mt-auto">
+                            <a href="/seguimientos/{{ $reporte->id_seguimiento }}/edit" class="btn btn-warning w-100 fw-bold rounded-3 text-white" style="background-color: #ff9dc3; border-color: #ff9dc3;">
+                                ✏️ EDITAR SEGUIMIENTO
+                            </a>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -210,6 +255,23 @@
         </div>
     </div>
 
+    <div class="modal fade" id="passwordSuccessModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4 rounded-4 border-0">
+            <div class="modal-body">
+                <div class="text-primary display-3 mb-3">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h3 class="fw-bold mb-2">¡Contraseña Actualizada!</h3>
+                <p class="text-muted small mb-4">Tu seguridad es nuestra prioridad. Has cambiado tu contraseña exitosamente.</p>
+                <button type="button" class="btn px-4 fw-bold text-white" style="background-color: #ff9dc3; border-radius:12px;" data-bs-dismiss="modal">
+                    Entendido 🐾
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 border-0 p-4">
@@ -218,42 +280,56 @@
         </div>
     </div>
 
-    <script>
-        const btnEditar = document.getElementById('btn-editar-perfil');
-        const btnCancelar = document.getElementById('btn-cancelar-edicion');
-        const campoAcciones = document.getElementById('actions-form-box');
-        const cajaPassword = document.getElementById('password-update-box');
-        const badgeCamara = document.getElementById('badge-camara'); // Captura el elemento corregido
-        const camposEditables = document.querySelectorAll('.profile-editable-field');
-
-        btnEditar.addEventListener('click', () => {
-            camposEditables.forEach(campo => campo.removeAttribute('disabled'));
-            campoAcciones.classList.remove('d-none');
-            cajaPassword.classList.remove('d-none');
-            badgeCamara.classList.remove('d-none'); // MUESTRA la camarita al editar
-            btnEditar.classList.add('d-none');
-        });
-
-        btnCancelar.addEventListener('click', () => {
-            camposEditables.forEach(campo => {
-                campo.setAttribute('disabled', 'true');
-                if (campo.type === 'password') {
-                    campo.value = '';
-                }
+ <script>
+    const ui = {
+        btnEditar: document.getElementById('btn-editar-perfil'),
+        btnCancelar: document.getElementById('btn-cancelar-edicion'),
+        accionesPerfil: document.getElementById('profile-actions-box'),
+        cajaPassword: document.getElementById('password-update-box'),
+        accionesCancelar: document.getElementById('cancel-actions-box'),
+        badgeCamara: document.getElementById('badge-camara'),
+        campos: document.querySelectorAll('.profile-editable-field'),
+        
+        toggleEdicion(modo) {
+            this.btnEditar.classList.toggle('d-none', modo);
+            this.accionesPerfil.classList.toggle('d-none', !modo);
+            this.cajaPassword.classList.toggle('d-none', !modo);
+            this.accionesCancelar.classList.toggle('d-none', !modo);
+            this.badgeCamara.classList.toggle('d-none', !modo);
+            
+            this.campos.forEach(c => {
+                c.disabled = !modo;
+                if (!modo && c.type === 'password') c.value = '';
             });
-            campoAcciones.classList.add('d-none');
-            cajaPassword.classList.add('d-none');
-            badgeCamara.classList.add('d-none'); // OCULTA por completo la camarita al cancelar
-            btnEditar.classList.remove('d-none');
-        });
+        }
+    };
 
-        document.getElementById('buscador-mis-reportes').addEventListener('keyup', function(){
-            let query = this.value.toLowerCase();
-            document.querySelectorAll('.tarjeta-mis-reportes').forEach(card => {
-                card.style.display = card.innerText.toLowerCase().includes(query) ? 'block' : 'none';
-            });
+    // Eventos
+    ui.btnEditar.addEventListener('click', () => ui.toggleEdicion(true));
+    ui.btnCancelar.addEventListener('click', () => ui.toggleEdicion(false));
+
+    // Buscador
+    document.getElementById('buscador-mis-reportes').addEventListener('keyup', (e) => {
+        const query = e.target.value.toLowerCase();
+        document.querySelectorAll('.tarjeta-mis-reportes').forEach(card => {
+            card.style.display = card.innerText.toLowerCase().includes(query) ? 'block' : 'none';
         });
-    </script>
+    });
+
+    // Errores de Laravel
+    @if($errors->updatePassword->any())
+        ui.toggleEdicion(true);
+    @endif
+
+
+
+@if(session('status') === 'password-updated')
+    var myModal = new bootstrap.Modal(document.getElementById('passwordSuccessModal'));
+    myModal.show();
+@endif
+
+
+</script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -7,6 +7,7 @@ use App\Models\Animal;
 use App\Models\Lugar;
 use App\Models\ImagenSeguimiento;
 use App\Models\HistorialEstadoSeguimiento;
+use App\Models\Cliente;
 
 class Seguimiento extends Model
 {
@@ -50,6 +51,16 @@ class Seguimiento extends Model
     )->where('imagen_principal', true);
 }
 
+public function imagenes()
+{
+    return $this->hasMany(
+        ImagenSeguimiento::class, 
+        'seguimiento_id', 
+        'id_seguimiento'
+    );
+}
+
+
     public function historial()
     {
         return $this->hasMany(
@@ -57,4 +68,9 @@ class Seguimiento extends Model
             'seguimiento_id'
         );
     }
+
+   public function cliente()
+{
+    return $this->belongsTo(Cliente::class, 'cliente_id', 'id_cliente');
+}
 }

@@ -8,17 +8,34 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Cliente;
+use App\Models\Seguimiento;
 
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Vista de mi propio perfil (Usuario Autenticado)
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $user = $request->user();
+        $esMiPerfil = true; 
+
+        return view('profile.edit', compact('user', 'esMiPerfil'));
+    }
+
+    /**
+     * Vista dinámica para ver cualquier perfil usando la misma vista
+     */
+    public function verPerfil($id_persona)
+    {
+        // Evaluamos si el perfil consultado le pertenece al usuario logueado
+        $esMiPerfil = (int) $id_persona === (int) Auth::id();
+        
+        // Buscamos los datos de la persona/usuario solicitado
+        $user = \App\Models\User::findOrFail($id_persona);
+
+        return view('profile.edit', compact('user', 'esMiPerfil'));
     }
 
     /**
@@ -27,37 +44,24 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = $request->user();
-        
-        // Rellenar con los campos de texto validados del formulario
         $user->fill($request->validated());
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
 
-        // 🐾 SOLUCCIÓN: Capturar el archivo directamente desde el request general, no desde el validated()
         if ($request->hasFile('foto_perfil')) {
-            
-            // 1. Obtenemos el archivo binario de la imagen
             $imagen = $request->file('foto_perfil');
-            
-            // 2. Creamos un nombre único e irrepetible
             $nombreImagen = 'avatar_' . $user->id_persona . '_' . time() . '.' . $imagen->getClientOriginalExtension();
-            
-            // 3. Movemos físicamente la foto a la carpeta: public/descargas/fotosperfil/
-            // (Usamos esta ruta para que coincida con lo que guardas en base de datos)
             $imagen->move(public_path('descargas/fotosperfil'), $nombreImagen);
             
-            // 4. Si el usuario ya tenía una foto previa, la borramos del servidor para no acumular basura
             if ($user->foto_perfil && file_exists(public_path($user->foto_perfil))) {
                 @unlink(public_path($user->foto_perfil));
             }
 
-            // 5. Guardamos exactamente la misma ruta estructural en la Base de Datos
             $user->foto_perfil = 'descargas/fotosperfil/' . $nombreImagen;
         }
 
-        // Guardamos de manera segura en la tabla 'personas'
         $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
@@ -73,14 +77,28 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
-
         Auth::logout();
-
         $user->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function miPerfil()
+    {
+        $cliente = Cliente::where('persona_id', Auth::id())->first();
+
+        if (!$cliente) {
+            return redirect('/')->with('error', 'No se encontró tu perfil de cliente.');
+        }
+
+        $reportes = Seguimiento::where('cliente_id', $cliente->id_cliente)
+            ->with(['animal.domestico', 'lugar.localidad', 'cliente'])
+            ->orderBy('fecha_publicacion', 'desc')
+            ->get();
+
+        return view('perfil.index', compact('reportes'));
     }
 }

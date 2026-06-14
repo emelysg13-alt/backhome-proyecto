@@ -71,6 +71,33 @@
         </div>
     </nav>
 
+    <div class="container mt-4 mb-2" style="max-width: 1140px;">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm py-3 px-4 text-white d-flex align-items-center justify-content-between" 
+                 role="alert" 
+                 style="background-color: #2ec4b6; border-radius: 50px;">
+                <div>
+                    ✨ <strong>¡Logrado!</strong> {{ session('success') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm py-3 px-4 text-white" 
+                 role="alert" 
+                 style="background-color: #e63946; border-radius: 20px;">
+                <strong class="d-block mb-1">⚠️ Ups, verifica lo siguiente:</strong>
+                <ul class="mb-0 ps-3">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    </div>
+
     <section class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1924&auto=format&fit=crop');">
         <div class="hero-overlay"></div>
         <div class="container hero-container text-start">
@@ -87,6 +114,9 @@
             </div>
         </div>
     </section>
+
+
+    
 
     <div class="container mt-solapado">
         @yield('contenido')
