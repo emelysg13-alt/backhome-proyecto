@@ -98,7 +98,7 @@
         @endif
     </div>
 
-    <section class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1924&auto=format&fit=crop');">
+    <section class="hero-section">
         <div class="hero-overlay"></div>
         <div class="container hero-container text-start">
             <div class="hero-content-box">

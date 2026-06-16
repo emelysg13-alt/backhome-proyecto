@@ -58,10 +58,14 @@ body {
 }
 
 /* --- HERO BANNER --- */
+
+
 .hero-section {
     position: relative;
+    background-image: url('../img/Gatos.png')  !important;
     background-size: cover;
-    background-position: center 35%;
+    background-position: center center;
+    background-repeat: no-repeat;
     height: 480px;
     display: flex;
     align-items: center;
