@@ -7,7 +7,15 @@ use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SoporteController;
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/contacto', function () {
+        return view('contacto');
+    })->name('contacto');
+
+    Route::post('/soporte/store', [SoporteController::class, 'store'])->name('soporte.store');
+});
 
 Route::get('/', [SeguimientoController::class, 'index'])->name('seguimientos.index');
 Route::get('/historial/{id}', [SeguimientoController::class, 'historial'])->name('seguimientos.historial');
