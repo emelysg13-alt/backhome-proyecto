@@ -107,8 +107,8 @@
                     Encuentra a tu mejor amigo para compartir tu mejor tiempo. Ayuda a reunir a las mascotas perdidas con sus familias.
                 </p>
                 <div class="hero-buttons">
-                    <a href="{{ route('contacto') }}" class="btn-hero-contact">
-                        Contacto 🐾
+                    <a href="{{ route('ayuda') }}" class="btn-hero-contact">
+                        Soporte 🐾
                     </a>
                 </div>
             </div>

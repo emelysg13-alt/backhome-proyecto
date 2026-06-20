@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SoporteController;
 
+
+Route::get('/ayuda', function () {
+    return view('ayuda');
+})->name('ayuda');
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/contacto', function () {
         return view('contacto');

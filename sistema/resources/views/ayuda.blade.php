@@ -67,26 +67,55 @@
             </div>
         </div>
     </nav>
-<section class="container my-5">
+
+
+
+    
+
+  <section class="container my-5">
     <div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-lg border-0">
-                <div class="card-body p-5">
-                    <h3 class="text-center" style="color: #ff9dc3;">Formulario de Contacto</h3>
-                    <p class="text-center text-muted">Estamos aquí para apoyarte con cualquier gestión técnica.</p>
-                    
-                    <form action="{{ route('soporte.store') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label class="form-label">Describe tu inconveniente</label>
-                            <textarea name="mensaje_cliente" class="form-control" rows="6" placeholder="Escribe tu mensaje aquí..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100 py-2">Enviar consulta</button>
-                    </form>
+    <h2 class="text-center mb-5" style="color: #ff9dc3;">Centro de Ayuda y Guía de Uso</h2>
+
+    <div class="accordion" id="faqAyuda">
+        
+        <div class="accordion-item border-0 shadow-sm mb-3">
+            <h2 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#cuenta">👤 Sobre tu cuenta y seguridad</button></h2>
+            <div id="cuenta" class="accordion-collapse collapse show" data-bs-parent="#faqAyuda">
+                <div class="accordion-body">
+                    <ul>
+                        <li><b>Recuperación:</b> Si olvidaste tu contraseña, usa el enlace "¿Olvidaste tu contraseña?" en la pantalla de inicio de sesión.</li>
+                        <li><b>Estados de la cuenta:</b>
+                            <ul>
+                                <li><i>Activo:</i> Acceso total a la plataforma.</li>
+                                <li><i>Suspendido:</i> Tu cuenta está inactiva temporalmente por incumplir normas menores.</li>
+                                <li><i>Bloqueado:</i> Acceso restringido permanentemente por violaciones graves a los términos de uso.</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+
+        <div class="accordion-item border-0 shadow-sm mb-3">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#seguimientos">🐾 Uso correcto de Seguimientos</button></h2>
+            <div id="seguimientos" class="accordion-collapse collapse" data-bs-parent="#faqAyuda">
+                <div class="accordion-body">
+                    <p>El objetivo de los seguimientos es ayudar a encontrar mascotas perdidas o reportar animales encontrados. Para mantener la comunidad sana:</p>
+                    <ul>
+                        <li><b>Prohibido crear seguimientos falsos:</b> La creación de datos ficticios será motivo de bloqueo inmediato.</li>
+                        <li><b>Calidad:</b> Adjunta fotos claras y datos precisos de ubicación.</li>
+                        <li><b>Responsabilidad:</b> Mantén el estado actualizado (ej: cambia a "Reunido" si la mascota ya volvió a casa).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card p-4 mt-5 border-0 shadow-lg text-center">
+        <h4 style="color: #ff9dc3;">¿Aún tienes dudas?</h4>
+        <p>Si tu problema no aparece aquí, nuestro equipo administrativo está listo para asistirte.</p>
+        <a href="{{ route('contacto') }}" class="btn btn-primary btn-lg">Ir a formulario de contacto</a>
     </div>
 </div>
 </section>

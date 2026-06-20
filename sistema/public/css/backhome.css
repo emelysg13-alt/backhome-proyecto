@@ -211,6 +211,22 @@ body {
 }
 
 
+:root {
+    --primary-color: #ff9dc3; /* Tu rosa corporativo */
+    --secondary-color: #6c757d;
+}
+
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.card { border-radius: 1rem !important; }
+
 
 
 /* --- LOADER --- */
