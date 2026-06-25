@@ -37,8 +37,14 @@ Back Home
 </a>
 
 <a href="{{ route('reportes.index') }}" class="menu-btn">
-📄 Reportes
+📄 Seguimientos
 </a>
+
+
+<a href="{{ route('descargar.reportes') }}" class="menu-btn">
+Reporte PDF
+</a>
+
 
 <form method="POST" action="{{ route('logout') }}" style="margin: 0; padding: 0;">
             @csrf
