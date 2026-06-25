@@ -195,6 +195,25 @@ CREATE TABLE mensajes_de_soporte (
 );
 
 
+CREATE TABLE consejos (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descripcion TEXT NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
+
+INSERT INTO consejos (titulo, descripcion, created_at, updated_at)
+VALUES
+('Hidratación', 'Mantén siempre agua fresca disponible para tu mascota.', NOW(), NOW()),
+('Vacunación', 'Lleva a tu mascota al veterinario para mantener sus vacunas al día.', NOW(), NOW()),
+('Alimentación', 'Proporciona una dieta equilibrada adecuada para su edad.', NOW(), NOW()),
+('Ejercicio', 'Realiza paseos diarios y actividades físicas con tu mascota.', NOW(), NOW());
+
+
+
+
 
 DELIMITER //
 
