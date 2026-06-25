@@ -118,6 +118,21 @@
 </div>
 @endforelse
 </div>
+<div class="text-center mt-5 mb-4">
+    <a href="{{ url('/consejos') }}"
+       class="btn shadow"
+       style="
+            background: linear-gradient(135deg,#ffb6d5,#ff85b5);
+            color:white;
+            border:none;
+            border-radius:50px;
+            padding:12px 25px;
+            font-weight:bold;
+            font-size:16px;
+       ">
+        🐾 Ver Consejos para Mascotas 🩷
+    </a>
+</div>
 
 <script>
 document.getElementById('buscador').addEventListener('keyup', function(){

@@ -8,6 +8,9 @@ use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SoporteController;
+use App\Http\Controllers\ConsejoController;
+
+Route::view('/consejos', 'consejos.index');
 
 
 Route::get('/ayuda', function () {
